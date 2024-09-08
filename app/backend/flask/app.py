@@ -3,9 +3,12 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import os
 import sqlite3
+
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+app.secret_key = 'your_secret_key'
 
 DBPATH = "./database.db"
 
@@ -51,6 +54,7 @@ def handle_get():
 def handle_post(msg):
     db_post(msg)
     emit('update', db_get())
+
 """
 @app.route("/post/<path:message>")
 def post_message(message):

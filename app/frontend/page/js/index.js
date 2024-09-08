@@ -26,7 +26,7 @@ function post() {
     console.log("POSTED MSG");
 }
 
-socket.emit('get')
+socket.emit('get');
 /*
 async function setup() {
     let req;
