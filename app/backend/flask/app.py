@@ -1,7 +1,11 @@
 from flask import Flask, jsonify
+from flask_socketio import SocketIO, emit
+from flask_cors import CORS
 import os
 import sqlite3
 app = Flask(__name__)
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 DBPATH = "./database.db"
 
@@ -39,6 +43,15 @@ def db_post(message: str):
         cursor.execute("INSERT INTO messages (contents) VALUES (?);", (message,))
         connection.commit()
 
+@socketio.on('get')
+def handle_get():
+    emit('update', db_get())
+
+@socketio.on('post')
+def handle_post(msg):
+    db_post(msg)
+    emit('update', db_get())
+"""
 @app.route("/post/<path:message>")
 def post_message(message):
     db_post(message)
@@ -47,3 +60,4 @@ def post_message(message):
 @app.route("/get")
 def get_messages():
     return db_get()
+"""

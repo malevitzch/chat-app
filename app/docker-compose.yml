@@ -6,8 +6,8 @@ services:
     networks:
       - main_network
   backend:
-    ports: 
-      - "8000:8000"
+    expose:
+     - "8000"
     build: ./backend
     networks:
      - main_network

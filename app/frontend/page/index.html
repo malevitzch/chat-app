@@ -8,8 +8,9 @@
 <body>
     <h1>MESSAGES</h1>
     <ul id="msgList"></ul>
+    <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
     <script src="js/index.js"></script>
-    <form onsubmit="post(event)" autocomplete="off">
+    <form onsubmit="post()" autocomplete="off">
         <input type="text" id="messageform" name="msg"><br>
     </form>
 </body>
