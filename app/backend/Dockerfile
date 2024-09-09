@@ -9,4 +9,4 @@ COPY ./flask/. /var/api/
 
 EXPOSE 8000
 WORKDIR /var/api/
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "app:app", "--workers", "4"]
+CMD ["hypercorn", "--bind", "0.0.0.0:8000", "app:asgi_app", "--workers", "4"]

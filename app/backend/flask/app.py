@@ -3,6 +3,7 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import os
 import sqlite3
+from asgiref.wsgi import WsgiToAsgi
 
 app = Flask(__name__)
 CORS(app)
@@ -46,14 +47,16 @@ def db_post(message: str):
         cursor.execute("INSERT INTO messages (contents) VALUES (?);", (message,))
         connection.commit()
 
-@socketio.on('get')
+@socketio.on('get_msgs')
 def handle_get():
     emit('update', db_get())
 
-@socketio.on('post')
+@socketio.on('post_msg')
 def handle_post(msg):
     db_post(msg)
     emit('update', db_get())
+
+asgi_app = WsgiToAsgi(app)
 
 """
 @app.route("/post/<path:message>")

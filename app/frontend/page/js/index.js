@@ -22,11 +22,11 @@ socket.on('update', (data) => {
 
 function post() {
     const msg = document.getElementById('messageform').value;
-    socket.emit('post', msg);
+    socket.emit('post_msg', msg);
     console.log("POSTED MSG");
 }
 
-socket.emit('get');
+socket.emit('get_msgs');
 /*
 async function setup() {
     let req;
